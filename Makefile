@@ -34,7 +34,7 @@ else
     CFLAGS += -fstack-protector
 endif
 
-R_CFLAGS = -fPIC -std=c89 -pedantic -Wall -Werror -Wstrict-prototypes -Wwrite-strings -Wshadow -Winit-self -Wcast-align -Wformat=2 -Wmissing-prototypes -Wstrict-overflow=2 -Wcast-qual -Wc++-compat -Wundef -Wswitch-default -Wconversion -Wfloat-equal $(CFLAGS)
+R_CFLAGS = -fPIC -std=c89 -pedantic -Wall -Werror -Wstrict-prototypes -Wwrite-strings -Wshadow -Winit-self -Wcast-align -Wformat=2 -Wmissing-prototypes -Wstrict-overflow=2 -Wcast-qual -Wc++-compat -Wundef -Wswitch-default -Wconversion $(CFLAGS)
 
 uname := $(shell sh -c 'uname -s 2>/dev/null || echo false')
 
@@ -104,7 +104,7 @@ $(UTILS_SHARED_VERSION): $(UTILS_OBJ)
 #cJSON
 $(CJSON_OBJ): cJSON.c cJSON.h
 #cJSON_Utils
-$(UTILS_OBJ): cJSON_Utils.c cJSON_Utils.h cJSON.h
+$(UTILS_OBJ): cJSON_Utils.c cJSON_Utils.h
 
 
 #links .so -> .so.1 -> .so.1.0.0

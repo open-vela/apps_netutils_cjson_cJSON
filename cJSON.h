@@ -137,11 +137,6 @@ typedef int cJSON_bool;
 #define CJSON_NESTING_LIMIT 1000
 #endif
 
-/* Precision of double variables comparison */
-#ifndef CJSON_DOUBLE_PRECIION
-#define CJSON_DOUBLE_PRECIION .00001
-#endif
-
 /* returns the version of cJSON as a string */
 CJSON_PUBLIC(const char*) cJSON_Version(void);
 
@@ -165,7 +160,7 @@ CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON
 /* NOTE: cJSON is not always 100% accurate in estimating how much memory it will use, so to be safe allocate 5 bytes more than you actually need */
 CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buffer, const int length, const cJSON_bool format);
 /* Delete a cJSON entity and all subentities. */
-CJSON_PUBLIC(void) cJSON_Delete(cJSON *item);
+CJSON_PUBLIC(void) cJSON_Delete(cJSON *c);
 
 /* Returns the number of items in an array (or object). */
 CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array);
@@ -179,7 +174,7 @@ CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *st
 CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void);
 
 /* Check if the item is a string and return its valuestring */
-CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item);
+CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item);
 
 /* These functions check the type of an item */
 CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item);
@@ -213,8 +208,7 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string);
 CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);
 CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);
 
-/* These utilities create an Array of count items. *
-*The parameter count cannot be greater than the number of elements in the number array,otherwise array access will be out of bounds.*/
+/* These utilities create an Array of count items. */
 CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count);
 CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count);
 CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count);
@@ -256,9 +250,7 @@ The item->next and ->prev pointers are always zero on return from Duplicate. */
  * case_sensitive determines if object keys are treated case sensitive (1) or case insensitive (0) */
 CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive);
 
-/* Minify a strings, remove blank characters(such as ' ', '\t', '\r', '\n') from strings */
-/* The input pointer json cannot point to a read-only address area, such as a string constant, 
- * but should point to a readable and writable adress area. */
+
 CJSON_PUBLIC(void) cJSON_Minify(char *json);
 
 /* Helper functions for creating and adding items to an object at the same time.
