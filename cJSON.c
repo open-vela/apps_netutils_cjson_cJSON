@@ -79,7 +79,7 @@ CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void)
     return (const char*) (global_error.json + global_error.position);
 }
 
-CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item) {
+CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item) {
     if (!cJSON_IsString(item)) {
         return NULL;
     }
@@ -132,7 +132,7 @@ typedef struct internal_hooks
 } internal_hooks;
 
 #if defined(_MSC_VER)
-/* work around MSVC error C2322: '...' address of dillimport '...' is not static */
+/* work around MSVC error C2322: '...' address of dllimport '...' is not static */
 static void * CJSON_CDECL internal_malloc(size_t size)
 {
     return malloc(size);
@@ -487,9 +487,9 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
     double d = item->valuedouble;
     int length = 0;
     size_t i = 0;
-    unsigned char number_buffer[26]; /* temporary buffer to print the number into */
+    unsigned char number_buffer[26] = {0}; /* temporary buffer to print the number into */
     unsigned char decimal_point = get_decimal_point();
-    double test;
+    double test = 0.0;
 
     if (output_buffer == NULL)
     {
@@ -2524,7 +2524,7 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count)
     return a;
 }
 
-CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char **strings, int count)
+CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int count)
 {
     size_t i = 0;
     cJSON *n = NULL;
