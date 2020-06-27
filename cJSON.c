@@ -106,7 +106,7 @@ CJSON_PUBLIC(double) cJSON_GetNumberValue(const cJSON * const item)
 {
     if (!cJSON_IsNumber(item)) 
     {
-        return (double) NAN;
+        return NAN;
     }
 
     return item->valuedouble;
