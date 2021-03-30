@@ -70,8 +70,15 @@
 #define false ((cJSON_bool)0)
 
 /* define our own int max and min */
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#define CJSON_INT_MAX LLONG_MAX
+#define CJSON_INT_MIN LLONG_MIN
+#define strtoint(s) strtoll((const char*)(s), NULL, 0)
+#else
 #define CJSON_INT_MAX INT_MAX
 #define CJSON_INT_MIN INT_MIN
+#define strtoint(s) atoi((const char*)(s))
+#endif
 
 /* define isnan and isinf for ANSI C, if in C99 or above, isnan and isinf has been defined in math.h */
 #ifndef isinf
@@ -309,6 +316,7 @@ typedef struct
 static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_buffer)
 {
     double number = 0;
+    cJSON_bool integer = cJSON_True;
     unsigned char *after_end = NULL;
     unsigned char number_c_string[64];
     unsigned char decimal_point = get_decimal_point();
@@ -338,12 +346,17 @@ static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_bu
             case '9':
             case '+':
             case '-':
+                number_c_string[i] = buffer_at_offset(input_buffer)[i];
+                break;
+
             case 'e':
             case 'E':
+                integer = cJSON_False;
                 number_c_string[i] = buffer_at_offset(input_buffer)[i];
                 break;
 
             case '.':
+                integer = cJSON_False;
                 number_c_string[i] = decimal_point;
                 break;
 
@@ -374,6 +387,11 @@ loop_end:
     else
     {
         item->valueint = (cJSON_int)number;
+        if (integer == cJSON_True && item->valueint != number)
+        {
+            /* convert again in caset of losing the precision */
+            item->valueint = strtoint(number_c_string);
+        }
     }
 
     item->type = cJSON_Number;
