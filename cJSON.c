@@ -74,11 +74,15 @@
 #define CJSON_INT_MAX LLONG_MAX
 #define CJSON_INT_MIN LLONG_MIN
 #define strtoint(s) strtoll((const char*)(s), NULL, 0)
+#define intfmt "%ll"
 #else
 #define CJSON_INT_MAX INT_MAX
 #define CJSON_INT_MIN INT_MIN
 #define strtoint(s) atoi((const char*)(s))
+#define intfmt "%d"
 #endif
+
+#define isint(d) (d == floor(d))
 
 /* define isnan and isinf for ANSI C, if in C99 or above, isnan and isinf has been defined in math.h */
 #ifndef isinf
@@ -583,6 +587,11 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
     if (isnan(d) || isinf(d))
     {
         length = sprintf((char*)number_buffer, "null");
+    }
+    else if (isint(d) && ((item->valueint != CJSON_INT_MAX &&
+             item->valueint != CJSON_INT_MIN) || d == item->valueint))
+    {
+        length = sprintf((char*)number_buffer, intfmt, item->valueint);
     }
     else
     {
@@ -3033,7 +3042,7 @@ CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * cons
             return true;
 
         case cJSON_Number:
-            if (compare_double(a->valuedouble, b->valuedouble))
+            if ((a->valueint == b->valueint) && compare_double(a->valuedouble, b->valuedouble))
             {
                 return true;
             }
