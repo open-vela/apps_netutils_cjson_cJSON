@@ -74,7 +74,7 @@
 #define CJSON_INT_MAX LLONG_MAX
 #define CJSON_INT_MIN LLONG_MIN
 #define strtoint(s) strtoll((const char*)(s), NULL, 0)
-#define intfmt "%ll"
+#define intfmt "%lld"
 #else
 #define CJSON_INT_MAX INT_MAX
 #define CJSON_INT_MIN INT_MIN
@@ -388,14 +388,14 @@ loop_end:
     {
         item->valueint = CJSON_INT_MIN;
     }
+    else if (integer == cJSON_True)
+    {
+        /* parse again to handle the very big integer */
+        item->valueint = strtoint(number_c_string);
+    }
     else
     {
         item->valueint = (cJSON_int)number;
-        if (integer == cJSON_True && item->valueint != number)
-        {
-            /* convert again in caset of losing the precision */
-            item->valueint = strtoint(number_c_string);
-        }
     }
 
     item->type = cJSON_Number;
