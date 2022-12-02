@@ -407,13 +407,13 @@ loop_end:
 /* don't ask me, but the original cJSON_SetNumberValue returns an integer or double */
 CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)
 {
-    if (number >= INT_MAX)
+    if (number >= CJSON_INT_MAX)
     {
-        object->valueint = INT_MAX;
+        object->valueint = CJSON_INT_MAX;
     }
-    else if (number <= (double)INT_MIN)
+    else if (number <= (double)CJSON_INT_MIN)
     {
-        object->valueint = INT_MIN;
+        object->valueint = CJSON_INT_MIN;
     }
     else
     {
