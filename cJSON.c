@@ -417,7 +417,7 @@ CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)
     }
     else
     {
-        object->valueint = (int)number;
+        object->valueint = (cJSON_int)number;
     }
 
     return object->valuedouble = number;
