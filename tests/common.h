@@ -25,8 +25,8 @@
 
 #include "../cJSON.c"
 
-void reset(cJSON *item);
-void reset(cJSON *item) {
+static void reset(cJSON *item);
+static void reset(cJSON *item) {
     if ((item != NULL) && (item->child != NULL))
     {
         cJSON_Delete(item->child);
@@ -43,8 +43,8 @@ void reset(cJSON *item) {
     memset(item, 0, sizeof(cJSON));
 }
 
-char* read_file(const char *filename);
-char* read_file(const char *filename) {
+static char* read_file(const char *filename);
+static char* read_file(const char *filename) {
     FILE *file = NULL;
     long length = 0;
     char *content = NULL;
