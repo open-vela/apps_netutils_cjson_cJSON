@@ -23,7 +23,10 @@
 #ifndef CJSON_TESTS_COMMON_H
 #define CJSON_TESTS_COMMON_H
 
+#define CJSON_PUBLIC(type) static type CJSON_STDCALL
 #include "../cJSON.c"
+#undef CJSON_PUBLIC
+#define CJSON_PUBLIC(type) type CJSON_STDCALL
 
 static void reset(cJSON *item);
 static void reset(cJSON *item) {

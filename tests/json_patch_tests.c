@@ -29,6 +29,12 @@
 #include "common.h"
 #include "../cJSON_Utils.h"
 
+#ifdef CONFIG_CJSON_UNITY_TEST_DIR
+#define JSON_PATCH_TEST_DIR CONFIG_CJSON_UNITY_TEST_DIR "/json-patch-tests/"
+#else
+#define JSON_PATCH_TEST_DIR "/data/json-patch-tests/"
+#endif
+
 static cJSON *parse_test_file(const char * const filename)
 {
     char *file = NULL;
@@ -182,7 +188,9 @@ static cJSON_bool test_generate_test(cJSON *test)
 
 static void cjson_utils_should_pass_json_patch_test_tests(void)
 {
-    cJSON *tests = parse_test_file("json-patch-tests/tests.json");
+    char path[50] = JSON_PATCH_TEST_DIR;
+    strcat(path, "tests.json");
+    cJSON *tests = parse_test_file(path);
     cJSON *test = NULL;
 
     cJSON_bool failed = false;
@@ -199,7 +207,9 @@ static void cjson_utils_should_pass_json_patch_test_tests(void)
 
 static void cjson_utils_should_pass_json_patch_test_spec_tests(void)
 {
-    cJSON *tests = parse_test_file("json-patch-tests/spec_tests.json");
+    char path[50] = JSON_PATCH_TEST_DIR;
+    strcat(path, "spec_tests.json");
+    cJSON *tests = parse_test_file(path);
     cJSON *test = NULL;
 
     cJSON_bool failed = false;
@@ -216,7 +226,9 @@ static void cjson_utils_should_pass_json_patch_test_spec_tests(void)
 
 static void cjson_utils_should_pass_json_patch_test_cjson_utils_tests(void)
 {
-    cJSON *tests = parse_test_file("json-patch-tests/cjson-utils-tests.json");
+    char path[50] = JSON_PATCH_TEST_DIR;
+    strcat(path, "cjson-utils-tests.json");
+    cJSON *tests = parse_test_file(path);
     cJSON *test = NULL;
 
     cJSON_bool failed = false;
