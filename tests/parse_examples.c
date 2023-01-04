@@ -58,7 +58,11 @@ static void do_test(const char *test_name)
     test_name_length = strlen(test_name);
 
     /* allocate file paths */
-#define TEST_DIR_PATH "inputs/"
+#ifdef CONFIG_CJSON_UNITY_TEST_DIR
+#define TEST_DIR_PATH CONFIG_CJSON_UNITY_TEST_DIR "/inputs/"
+#else
+#define TEST_DIR_PATH "/data/inputs/"
+#endif
     test_path = (char*)malloc(sizeof(TEST_DIR_PATH) + test_name_length);
     TEST_ASSERT_NOT_NULL_MESSAGE(test_path, "Failed to allocate test_path buffer.");
     expected_path = (char*)malloc(sizeof(TEST_DIR_PATH) + test_name_length + sizeof(".expected"));
@@ -136,7 +140,9 @@ static void file_test6_should_not_be_parsed(void)
     char *test6 = NULL;
     cJSON *tree = NULL;
 
-    test6 = read_file("inputs/test6");
+    char path[30] = TEST_DIR_PATH;
+    strcat(path, "test6");
+    test6 = read_file(path);
     TEST_ASSERT_NOT_NULL_MESSAGE(test6, "Failed to read test6 data.");
 
     tree = cJSON_Parse(test6);
