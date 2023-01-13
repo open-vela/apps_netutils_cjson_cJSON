@@ -65,7 +65,7 @@ static void print_string_should_print_utf8(void)
     assert_print_string("\"ü猫慕\"", "ü猫慕");
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     /* initialize cJSON item */
     UNITY_BEGIN();

@@ -96,7 +96,7 @@ static void parse_number_should_parse_negative_reals(void)
     assert_parse_number("-123e-128", 0, -123e-128);
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     /* initialize cJSON item */
     memset(item, 0, sizeof(cJSON));

@@ -650,7 +650,7 @@ static void cjson_set_valuestring_to_object_should_not_leak_memory(void)
     cJSON_Delete(root);
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 

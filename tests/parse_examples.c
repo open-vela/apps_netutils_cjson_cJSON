@@ -256,7 +256,7 @@ static void test14_should_not_be_parsed(void)
     }
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     UNITY_BEGIN();
     RUN_TEST(file_test1_should_be_parsed_and_printed);

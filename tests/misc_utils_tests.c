@@ -70,7 +70,7 @@ static void cjson_utils_functions_shouldnt_crash_with_null_pointers(void)
     cJSON_Delete(item);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 

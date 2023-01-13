@@ -90,7 +90,7 @@ static void print_value_should_print_object(void)
     assert_print_value("{}");
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     /* initialize cJSON item */
     UNITY_BEGIN();

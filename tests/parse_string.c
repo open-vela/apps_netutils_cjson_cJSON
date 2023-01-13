@@ -119,7 +119,7 @@ static void parse_string_should_parse_bug_94(void)
     reset(item);
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     /* initialize cJSON item and error pointer */
     memset(item, 0, sizeof(cJSON));

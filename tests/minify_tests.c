@@ -158,7 +158,7 @@ static void cjson_minify_should_not_loop_infinitely(void) {
     cJSON_Minify(string);
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 

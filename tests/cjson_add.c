@@ -422,7 +422,7 @@ static void cjson_add_array_should_fail_on_allocation_failure(void)
     cJSON_Delete(root);
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 
