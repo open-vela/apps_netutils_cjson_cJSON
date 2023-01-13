@@ -243,7 +243,7 @@ static void cjson_utils_should_pass_json_patch_test_cjson_utils_tests(void)
     TEST_ASSERT_FALSE_MESSAGE(failed, "Some tests failed.");
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 
