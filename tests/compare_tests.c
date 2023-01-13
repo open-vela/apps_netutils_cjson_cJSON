@@ -189,7 +189,7 @@ static void cjson_compare_should_compare_objects(void)
                 false))
 }
 
-int CJSON_CDECL main(void)
+int CJSON_CDECL main(int argc, char *argv[])
 {
     UNITY_BEGIN();
 
