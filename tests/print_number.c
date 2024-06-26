@@ -84,7 +84,7 @@ static void print_number_should_print_positive_integers(void)
 static void print_number_should_print_positive_reals(void)
 {
     assert_print_number("0.123", 0.123);
-    assert_print_number("1e-9", 10e-10);
+    assert_print_number("1e-09", 10e-10);
     assert_print_number("1000000000000", 10e11);
     assert_print_number("1.23e+129", 123e+127);
     assert_print_number("1.23e-126", 123e-128);
@@ -95,7 +95,7 @@ static void print_number_should_print_positive_reals(void)
 static void print_number_should_print_negative_reals(void)
 {
     assert_print_number("-0.0123", -0.0123);
-    assert_print_number("-1e-9", -10e-10);
+    assert_print_number("-1e-09", -10e-10);
     assert_print_number("-1e+21", -10e20);
     assert_print_number("-1.23e+129", -123e+127);
     assert_print_number("-1.23e-126", -123e-128);
