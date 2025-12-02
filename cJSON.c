@@ -380,7 +380,7 @@ loop_end:
     item->valuedouble = number;
 
     /* use saturation in case of overflow */
-    if (number >= CJSON_INT_MAX)
+    if (number >= (double)CJSON_INT_MAX)
     {
         item->valueint = CJSON_INT_MAX;
     }
@@ -407,7 +407,7 @@ loop_end:
 /* don't ask me, but the original cJSON_SetNumberValue returns an integer or double */
 CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)
 {
-    if (number >= CJSON_INT_MAX)
+    if (number >= (double)CJSON_INT_MAX)
     {
         object->valueint = CJSON_INT_MAX;
     }
